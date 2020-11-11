@@ -12,7 +12,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import mb.solo.pointeuse.model.Chrono;
 import mb.solo.pointeuse.model.Point;
 import mb.solo.pointeuse.orm.PointDao;
 
@@ -47,7 +50,11 @@ public class MainActivity extends BaseActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }*/
-            Log.i(TAG, dao.list().toString() );
+            //Log.i(TAG, dao.list().toString() );
+            TextView tv = findViewById(R.id.tvChrono);
+            Timer timer = new Timer();
+            TimerTask task = new Chrono(item, tv);
+            timer.schedule(task, 1, 1000);
 
         });
     }
