@@ -4,4 +4,5 @@
     <string name="tvLast_en_cour">Dernier pointage en cours:</string>
     <string name="btn_add_point">Démarrer</string>
     <string name="btn_end_point">Arrêter</string>
+    <string name="edt_info_hint">Info (facultatif, seulement en entrée)</string>
 </resources>

@@ -42,6 +42,7 @@ public class Point {
 
     public void setDateEntre(Date dateEntre) {
         this.dateEntre = dateEntre;
+        this.setTempsTravail();
     }
 
     public Date getDateSortie() {
@@ -50,14 +51,17 @@ public class Point {
 
     public void setDateSortie(Date dateSortie) {
         this.dateSortie = dateSortie;
+        this.setTempsTravail();
     }
 
     public long getTempsTravail() {
         return tempsTravail;
     }
 
-    public void setTempsTravail(long tempsTravail) {
-        this.tempsTravail = tempsTravail;
+    public void setTempsTravail() {
+        if(dateSortie.getTime() != 0 && dateEntre.getTime() != 0) { //Permet de rafraichir le tempTravail à chaque fois que l'on set un temps!
+            this.tempsTravail = this.dateSortie.getTime() - this.dateEntre.getTime();
+        }
     }
 
     public String getInfo() {

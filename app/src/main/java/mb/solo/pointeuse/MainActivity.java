@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -34,9 +35,10 @@ public class MainActivity extends BaseActivity {
             createPoint();
         });
 
+        //Pour les tests
         Button b = findViewById(R.id.btn);
         b.setOnClickListener(v ->{
-            try {
+            /*try {
                 Date date1 = myFormat.parse("02/06/2020 08:30");
                 Date date2 = myFormat.parse("04/06/2020 08:30");
                 String test = Point.formatDiff(date1, date2);
@@ -44,7 +46,8 @@ public class MainActivity extends BaseActivity {
 
             } catch (ParseException e) {
                 e.printStackTrace();
-            }
+            }*/
+            Log.i(TAG, dao.list().toString() );
 
         });
     }
@@ -54,9 +57,12 @@ public class MainActivity extends BaseActivity {
         TextView tvLast = findViewById(R.id.tvLast);
         TextView tvPoint = findViewById(R.id.tvPoint);
         Button btnPoint = findViewById(R.id.btnPoint);
+        EditText info = findViewById(R.id.edtInfo);
         if(item != null){
             tvLast.setText(R.string.tvLast_en_cour);
-            //tvPoint.setText(item.getDateEntre());
+            String date = myFormat.format(item.getDateEntre());
+            tvPoint.setText(date);
+            info.setEnabled(false);
             btnPoint.setText(R.string.btn_end_point);
         }else{
             tvLast.setText(R.string.tvLast_default);
@@ -67,27 +73,20 @@ public class MainActivity extends BaseActivity {
 
     private void createPoint(){
 
-       /* Date dateNow = Calendar.getInstance().getTime();
-        String date = myFormat.format(dateNow);
+        Date dateNow = Calendar.getInstance().getTime();
+        EditText info = findViewById(R.id.edtInfo);
         if(item == null){
-            Point point = new Point(date, "");
+            Point point = new Point(dateNow, info.getText().toString());
+            info.setText("");
+            info.setEnabled(false);
             Log.i(TAG, point.toString());
             dao.create(point);
         }else{
-            item.setDateSortie(date);
+            item.setDateSortie(dateNow);
+            info.setEnabled(true);
             Log.i(TAG, item.toString());
-
-            try {
-                Date date1 = myFormat.parse(item.getDateEntre());
-                Date date2 = myFormat.parse(item.getDateSortie());
-                long diffHour = ((date2.getTime() - date1.getTime())/(1000*60))/60;
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            //
             dao.update(item);
         }
-        showLast();*/
+        showLast();
     }
 }
