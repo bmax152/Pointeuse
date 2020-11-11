@@ -3,6 +3,7 @@ package mb.solo.pointeuse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,9 @@ public class MainActivity extends BaseActivity {
     private Point item = null;
     private String patternFormat = "dd/MM/yyyy kk:mm";
     private SimpleDateFormat myFormat = new SimpleDateFormat(patternFormat);
+    private Timer timer = new Timer();
+    private Handler mHandler = new Handler();
+    private TimerTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +55,10 @@ public class MainActivity extends BaseActivity {
                 e.printStackTrace();
             }*/
             //Log.i(TAG, dao.list().toString() );
-            TextView tv = findViewById(R.id.tvChrono);
+            /*TextView tv = findViewById(R.id.tvChrono);
             Timer timer = new Timer();
-            TimerTask task = new Chrono(item, tv);
-            timer.schedule(task, 1, 1000);
+            TimerTask task = new Chrono(item, tv, mHandler);
+            timer.schedule(task, 1, 60000);*/
 
         });
     }
@@ -65,16 +69,25 @@ public class MainActivity extends BaseActivity {
         TextView tvPoint = findViewById(R.id.tvPoint);
         Button btnPoint = findViewById(R.id.btnPoint);
         EditText info = findViewById(R.id.edtInfo);
+        TextView tv = findViewById(R.id.tvChrono);
         if(item != null){
             tvLast.setText(R.string.tvLast_en_cour);
             String date = myFormat.format(item.getDateEntre());
             tvPoint.setText(date);
             info.setEnabled(false);
             btnPoint.setText(R.string.btn_end_point);
+            task = new Chrono(item, tv, mHandler);
+            timer.schedule(task, 1, 60000);
         }else{
             tvLast.setText(R.string.tvLast_default);
             tvPoint.setText("");
             btnPoint.setText(R.string.btn_add_point);
+            tv.setText("");
+            //Pour ne pas interférer avec le lancement de l'app
+            if(task!=null){
+                task.cancel();
+            }
+
         }
     }
 
