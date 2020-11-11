@@ -12,7 +12,7 @@ import mb.solo.pointeuse.model.Point;
 
 public class DbManager extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "pointeur.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TAG = "orm";
 
     public DbManager(Context context) {

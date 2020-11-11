@@ -1,6 +1,7 @@
 package mb.solo.pointeuse.model;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.types.DateTimeType;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
@@ -11,18 +12,18 @@ public class Point {
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
-    private String dateEntre;
+    private Date dateEntre;
     @DatabaseField
-    private String dateSortie;
+    private Date dateSortie;
     @DatabaseField
-    private int tempsTravail;
+    private long tempsTravail; //tmps en milliseconde
     @DatabaseField
     private String info;
 
     public Point() {
     }
 
-    public Point(String dateEntre, String info) {
+    public Point(Date dateEntre, String info) {
         this.dateEntre = dateEntre;
         this.info = info;
     }
@@ -35,27 +36,27 @@ public class Point {
         this.id = id;
     }
 
-    public String getDateEntre() {
+    public Date getDateEntre() {
         return dateEntre;
     }
 
-    public void setDateEntre(String dateEntre) {
+    public void setDateEntre(Date dateEntre) {
         this.dateEntre = dateEntre;
     }
 
-    public String getDateSortie() {
+    public Date getDateSortie() {
         return dateSortie;
     }
 
-    public void setDateSortie(String dateSortie) {
+    public void setDateSortie(Date dateSortie) {
         this.dateSortie = dateSortie;
     }
 
-    public int getTempsTravail() {
+    public long getTempsTravail() {
         return tempsTravail;
     }
 
-    public void setTempsTravail(int tempsTravail) {
+    public void setTempsTravail(long tempsTravail) {
         this.tempsTravail = tempsTravail;
     }
 
@@ -76,5 +77,18 @@ public class Point {
                 ", tempsTravail=" + tempsTravail +
                 ", info='" + info + '\'' +
                 '}';
+    }
+
+    /*
+    * Renvois une difference de date au format: 00h00min
+    * */
+
+    static public String formatDiff(Date date1, Date date2){
+        long diff = date2.getTime() - date1.getTime();
+        long diffHour = diff/(3600000);
+        long restMin  = diff%(3600000);
+        long diffMin = restMin/60000;
+
+        return diffHour + "h" + diffMin + "min";
     }
 }

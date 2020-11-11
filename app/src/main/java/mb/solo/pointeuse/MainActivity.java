@@ -38,11 +38,9 @@ public class MainActivity extends BaseActivity {
         b.setOnClickListener(v ->{
             try {
                 Date date1 = myFormat.parse("02/06/2020 08:30");
-                Date date2 = myFormat.parse("02/06/2020 12:00");
-                //long diffMinu = (date2.getTime() - date1.getTime())/(1000*60);
-                //TODO: erreur de virgule 3.0 au lieu de 3.5
-                float diffHour = ((date2.getTime() - date1.getTime())/(1000*60))/60;
-                Log.i(TAG, diffHour+"");
+                Date date2 = myFormat.parse("04/06/2020 08:30");
+                String test = Point.formatDiff(date1, date2);
+                Log.i(TAG, test );
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -58,7 +56,7 @@ public class MainActivity extends BaseActivity {
         Button btnPoint = findViewById(R.id.btnPoint);
         if(item != null){
             tvLast.setText(R.string.tvLast_en_cour);
-            tvPoint.setText(item.getDateEntre());
+            //tvPoint.setText(item.getDateEntre());
             btnPoint.setText(R.string.btn_end_point);
         }else{
             tvLast.setText(R.string.tvLast_default);
@@ -69,7 +67,7 @@ public class MainActivity extends BaseActivity {
 
     private void createPoint(){
 
-        Date dateNow = Calendar.getInstance().getTime();
+       /* Date dateNow = Calendar.getInstance().getTime();
         String date = myFormat.format(dateNow);
         if(item == null){
             Point point = new Point(date, "");
@@ -90,6 +88,6 @@ public class MainActivity extends BaseActivity {
             //
             dao.update(item);
         }
-        showLast();
+        showLast();*/
     }
 }
