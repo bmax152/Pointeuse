@@ -59,7 +59,6 @@ public class MainActivity extends BaseActivity {
             Timer timer = new Timer();
             TimerTask task = new Chrono(item, tv, mHandler);
             timer.schedule(task, 1, 60000);*/
-
         });
     }
 
@@ -87,7 +86,6 @@ public class MainActivity extends BaseActivity {
             if(task!=null){
                 task.cancel();
             }
-
         }
     }
 
