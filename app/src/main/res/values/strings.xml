@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pointeuse</string>
+    <string name="tvLast_default">Pas de pointage en cours</string>
+    <string name="tvLast_en_cour">Dernier pointage en cours:</string>
+    <string name="btn_add_point">Démarrer</string>
+    <string name="btn_end_point">Arrêter</string>
+</resources>
