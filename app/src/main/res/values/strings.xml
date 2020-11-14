@@ -5,4 +5,5 @@
     <string name="btn_add_point">Démarrer</string>
     <string name="btn_end_point">Arrêter</string>
     <string name="edt_info_hint">Info (facultatif, seulement en entrée)</string>
+    <string name="mi_histo_txt">Historique</string>
 </resources>
