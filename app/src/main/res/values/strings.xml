@@ -6,4 +6,9 @@
     <string name="btn_end_point">Arrêter</string>
     <string name="edt_info_hint">Info (facultatif, seulement en entrée)</string>
     <string name="mi_histo_txt">Historique</string>
+    <string name="tv_title_histo">Historique des pointages</string>
+    <string name="edt_date1_hint_txt">Selectionner la date</string>
+    <string name="edt_date2_hint_txt">Selectionner la date</string>
+    <string name="tv_title_d1">Date de départ:</string>
+    <string name="tv_title_d2">Date de fin:</string>
 </resources>
