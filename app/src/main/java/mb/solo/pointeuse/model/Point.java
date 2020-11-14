@@ -95,4 +95,8 @@ public class Point {
 
         return diffHour + "h" + diffMin + "min";
     }
+
+    static public String formatDiff(Point point){
+        return formatDiff(point.dateEntre, point.dateSortie);
+    }
 }

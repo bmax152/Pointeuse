@@ -29,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.mi_histo:
-                //callActivity(CategoriesActivity.class);
+                callActivity(HistoActivity.class);
                 return true;
             default: //rien du tout
         }

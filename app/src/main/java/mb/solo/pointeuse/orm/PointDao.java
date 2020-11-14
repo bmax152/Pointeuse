@@ -8,6 +8,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,18 @@ public class PointDao {
             Log.i(TAG, "PointDao - SelectAll - OK");
         }catch (SQLException e){
             Log.e(TAG, "PointDao - SelectAll - Error! ",e);
+        }
+        return items;
+    }
+
+    public List<Point> listDate(Date date1, Date date2){
+
+        List<Point> items = new ArrayList<>();
+        try{
+            items = dao.queryBuilder().orderBy("dateEntre", false)
+                    .where().between("dateEntre", date1, date2).query();
+        }catch (SQLException e){
+            Log.e(TAG, "PointDao - SelectByDate - Error! ",e);
         }
         return items;
     }
