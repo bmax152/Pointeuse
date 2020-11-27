@@ -40,6 +40,9 @@ public class HistoActivity extends AppCompatActivity {
     EditText edtDate2;
     Button btnSubmit;
 
+    private String patternFormat = "dd/MM/yyyy kk:mm";
+    private SimpleDateFormat myFormat = new SimpleDateFormat(patternFormat);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,13 +144,21 @@ public class HistoActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyListViewHolder holder, int position) {
             Point point = data.get(position);
-            holder.truc.setText(point.getDateEntre().toString());
+            String d1 = myFormat.format(point.getDateEntre());
+            String d2 = "";
+            holder.truc.setText(d1);
             if(point.getDateSortie() == null){
                 holder.truc2.setText("En cour...");
                 holder.truc3.setText(Point.formatDiff(point.getDateEntre(), Calendar.getInstance().getTime()));
             }else{
-                holder.truc2.setText(point.getDateSortie().toString());
+                d2 = myFormat.format(point.getDateSortie());
+                holder.truc2.setText(d2);
                 holder.truc3.setText(Point.formatDiff(point));
+            }
+            if(point.getInfo().equals("")){
+                holder.truc4.setText("***");
+            }else{
+                holder.truc4.setText(point.getInfo());
             }
         }
 
@@ -162,12 +173,14 @@ public class HistoActivity extends AppCompatActivity {
         TextView truc;
         TextView truc2;
         TextView truc3;
+        TextView truc4;
 
         public MyListViewHolder(@NonNull View itemView) {
             super(itemView);
             truc = itemView.findViewById(R.id.textView2);
             truc2 = itemView.findViewById(R.id.textView3);
             truc3 = itemView.findViewById(R.id.textView);
+            truc4 = itemView.findViewById(R.id.textView4);
         }
     }
 }
