@@ -194,9 +194,15 @@ public class HistoActivity extends AppCompatActivity {
             itemView.setOnClickListener( v -> {
                 int index = getAdapterPosition();
                 Point element = data.get(index);
+                String nom = myFormat.format(element.getDateEntre()) + " -> ";
+                if(element.getDateSortie() == null){
+                    nom += "en cour";
+                }else{
+                    nom += myFormat.format(element.getDateSortie());
+                }
                 //Toast.makeText(HistoActivity.this, "Click on: " + element.getId() , Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(HistoActivity.this);
-                builder.setTitle("Modification du pointage")
+                builder.setTitle(nom)
                         .setMessage("Voulez-vous modifier ou supprimer le pointage?")
                         .setPositiveButton("Modifier", new DialogInterface.OnClickListener(){
                             @Override
