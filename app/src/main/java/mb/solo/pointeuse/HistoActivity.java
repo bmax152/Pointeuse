@@ -2,12 +2,15 @@ package mb.solo.pointeuse;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -20,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -73,7 +77,23 @@ public class HistoActivity extends AppCompatActivity {
 
     private void makeExcel(List<Point> data) {
         Excel exc = new Excel(data);
-        exc.makeFile(HistoActivity.this);
+        File file = exc.makeFile(HistoActivity.this);
+
+        if(file != null){
+            Intent emailSelectorIntent = new Intent(Intent.ACTION_SENDTO);
+            emailSelectorIntent.setData(Uri.parse("mailto:"));
+            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"max2222@yopmail.com"});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[Pointeuse]Fichier .xls demander");
+            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            emailIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            emailIntent.setSelector(emailSelectorIntent);
+
+            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            Log.i("orm", String.valueOf(Uri.fromFile(file)));
+
+            startActivity(emailIntent);
+        }
     }
 
     public static Date addDay(Date date, int i) {

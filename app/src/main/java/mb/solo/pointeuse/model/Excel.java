@@ -1,7 +1,11 @@
 package mb.solo.pointeuse.model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+
+import androidx.core.content.FileProvider;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -23,7 +27,7 @@ public class Excel {
     //https://github.com/andruhon/android5xlsx
     private List<Point> data;
     private String patternFormat = "dd/MM/yyyy kk:mm";
-    private String patternFormatFichier = "dd_MM_yyyy_kk:mm";
+    private String patternFormatFichier = "dd_MM_yyyy_kk_mm_ss";
     private SimpleDateFormat myFormat = new SimpleDateFormat(patternFormat);
     private SimpleDateFormat myFormatFichier = new SimpleDateFormat(patternFormatFichier);
     public Excel(List<Point> data) {
@@ -38,7 +42,7 @@ public class Excel {
         this.data = data;
     }
 
-    public void makeFile(Context ctx){
+    public File makeFile(Context ctx){
         HSSFWorkbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("page 1");
         int num = 0;
@@ -60,10 +64,12 @@ public class Excel {
             wb.write(fileOut);
             fileOut.close();
             Log.i("orm", "Création du fichier "+titre);
+            return file;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
