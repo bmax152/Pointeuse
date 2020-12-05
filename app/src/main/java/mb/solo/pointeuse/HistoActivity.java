@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,6 +134,12 @@ public class HistoActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        data = dao.list();
+    }
+
     private class MyListAdapter extends RecyclerView.Adapter<MyListViewHolder>{
 
         @NonNull
@@ -181,6 +190,31 @@ public class HistoActivity extends AppCompatActivity {
             truc2 = itemView.findViewById(R.id.textView3);
             truc3 = itemView.findViewById(R.id.textView);
             truc4 = itemView.findViewById(R.id.textView4);
+
+            itemView.setOnClickListener( v -> {
+                int index = getAdapterPosition();
+                Point element = data.get(index);
+                //Toast.makeText(HistoActivity.this, "Click on: " + element.getId() , Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(HistoActivity.this);
+                builder.setTitle("Modification du pointage")
+                        .setMessage("Voulez-vous modifier ou supprimer le pointage?")
+                        .setPositiveButton("Modifier", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //TODO
+                            }
+                        })
+                        .setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dao.delete(element);
+                                data.remove(index);
+                                adapter.notifyItemRemoved(index);
+                                adapter.notifyItemRangeChanged(index, data.size());
+                            }
+                        })
+                        .show();
+            });
         }
     }
 }
