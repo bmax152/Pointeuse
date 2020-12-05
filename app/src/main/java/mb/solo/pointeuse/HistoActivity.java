@@ -20,6 +20,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,9 +51,12 @@ public class HistoActivity extends AppCompatActivity {
     EditText edtDate1;
     EditText edtDate2;
     Button btnSubmit;
+    Button btnExcel;
 
     private String patternFormat = "dd/MM/yyyy kk:mm";
+    private String patternFormatFichier = "dd_MM_yyyy_kk:mm";
     private SimpleDateFormat myFormat = new SimpleDateFormat(patternFormat);
+    private SimpleDateFormat myFormatFichier = new SimpleDateFormat(patternFormatFichier);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +73,41 @@ public class HistoActivity extends AppCompatActivity {
 
         //https://www.tutlane.com/tutorial/android/android-datepicker-with-examples
         makePicker();
+        btnExcel = findViewById(R.id.btn_excel);
+        btnExcel.setOnClickListener(v->{
+            makeExcel(data);
+        });
+    }
+    //https://github.com/andruhon/android5xlsx
+    private void makeExcel(List<Point> data) {
+
+        HSSFWorkbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet("page 1");
+        int num = 0;
+        for (Point point : data) {
+            Row row = sheet.createRow(num);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(myFormat.format(point.getDateEntre()));
+            row.createCell(1).setCellValue(myFormat.format(point.getDateSortie()));
+            row.createCell(2).setCellValue(Point.formatDiff(point));
+            row.createCell(3).setCellValue(point.getInfo());
+            num++;
+        }
+        Date dateNow = Calendar.getInstance().getTime();
+        //String titre = myFormat.format(dateNow)+".xls";
+        String titre = myFormatFichier.format(dateNow)+".xls";
+        File file = new File(HistoActivity.this.getExternalFilesDir(null), titre);
+        FileOutputStream fileOut;
+        try {
+            fileOut = new FileOutputStream(file);
+            wb.write(fileOut);
+            fileOut.close();
+            Log.i("orm", "YES");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Date addDay(Date date, int i) {
