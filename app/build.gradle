@@ -32,7 +32,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'com.j256.ormlite:ormlite-android:5.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation fileTree(dir: 'C:\\Users\\nura\\Desktop\\android5xlsx-master\\', include: ['*.aar', '*.jar'], exclude: [])
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+    /*implementation fileTree(dir: 'C:\\Users\\nura\\Desktop\\android5xlsx-master\\', include: ['*.aar', '*.jar'], exclude: [])*/
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
