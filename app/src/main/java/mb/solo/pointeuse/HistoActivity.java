@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -207,7 +208,9 @@ public class HistoActivity extends AppCompatActivity {
                         .setPositiveButton("Modifier", new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //TODO
+                                Intent intent = new Intent(HistoActivity.this, CreateOrUpdateActivity.class);
+                                intent.putExtra("updatePoint", element);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {

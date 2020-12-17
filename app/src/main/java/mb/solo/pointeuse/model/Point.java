@@ -4,10 +4,11 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.types.DateTimeType;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @DatabaseTable(tableName = "points")
-public class Point {
+public class Point implements Serializable {
 
     @DatabaseField(generatedId = true)
     private int id;
