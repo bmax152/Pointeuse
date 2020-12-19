@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -138,7 +140,14 @@ public class CreateOrUpdateActivity extends AppCompatActivity {
                     }
                     PointDao dao = new PointDao(CreateOrUpdateActivity.this);
                     dao.createOrUpdate(element);
+                    Toast.makeText(getApplicationContext(),"Modification OK", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CreateOrUpdateActivity.this, HistoActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"La date en sortit doit être après la date en entrée", Toast.LENGTH_LONG).show();
                 }
+            }else{
+                Toast.makeText(getApplicationContext(),"Vérifier les informations", Toast.LENGTH_LONG).show();
             }
         });
     }

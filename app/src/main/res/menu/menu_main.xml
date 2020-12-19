@@ -4,4 +4,7 @@
     <item
         android:id="@+id/mi_histo"
         android:title="@string/mi_histo_txt" />
+    <item
+        android:id="@+id/mi_ajout"
+        android:title="@string/mi_ajout_txt" />
 </menu>

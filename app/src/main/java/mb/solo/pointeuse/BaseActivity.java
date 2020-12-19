@@ -31,6 +31,9 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.mi_histo:
                 callActivity(HistoActivity.class);
                 return true;
+            case R.id.mi_ajout:
+                callActivity(CreateOrUpdateActivity.class);
+                return true;
             default: //rien du tout
         }
         return super.onOptionsItemSelected(item);
